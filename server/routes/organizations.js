@@ -48,7 +48,7 @@ req.body.image, req.body.primary, req.body.secondary, req.body.head, req.body.fo
       });
   })
   app.put('/api/organizations/:slug_id', function(req, res, next) {
-    queries.updateOrganization(req.body.id, req.body.name, req.body.slug_id, req.body.activate,
+    queries.updateOrganization(req.body.id, req.body.name, req.body.slug_id, req.body.active,
 req.body.image, req.body.primary, req.body.secondary, req.body.head, req.body.foot)
       .then(function() {
         res.status(200).json({ message:"updated" });

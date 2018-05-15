@@ -2,6 +2,18 @@ const queries = require("../queries/products.js");
 const AWS = require('aws-sdk');
 const uuid = require('uuid/v1');
 const keys = require('../config');
+const passportService = require('../services/passport');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.sign({ sub: user[0].id , iat: Math.floor(Date.now() / 1000) - 30 }, config.secret);
+}
 
 const s3 = new AWS.S3({
   accessKeyId: keys.accessKeyId,
@@ -163,7 +175,9 @@ req.body.color, req.body.sizes, req.body.custom_fields)
         });
   })
   app.get('/api/upload', (req, res) => {
-    const key = `${req.user.id}/${uuid()}.jpeg`;
+    var tok = req.headers.authorization;
+    var decoded = jwt.verify(tok, config.secret);
+    const key = `${decoded.sub}/${uuid()}.jpeg`;
     s3.getSignedUrl(
       'putObject',
       {

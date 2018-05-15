@@ -5,7 +5,7 @@
     $scope.title = "Organizations";
     $scope.backButton = true;
     $scope.pathname = window.location.pathname;
-    $scope.action = $scope.pathname.split("/")[$scope.pathname.split("/").length - 1]; 
+    $scope.action = $scope.pathname.split("/")[$scope.pathname.split("/").length - 1];
 
     console.log("controller: orgs");
     console.log("action: "+$scope.action);
@@ -69,9 +69,9 @@
       var orgSecondaryColor = newOrgForm.find('#secondary_color').val();
 
       //send logo file to S3 server, then store that url
-      var bucket = new AWS.S3({params: {Bucket: 'monteyne'}});
-      var fileChooser = document.getElementById('logo_image');
-      var file = fileChooser.files[0];
+      //var bucket = new AWS.S3({params: {Bucket: 'monteyne'}});
+      //var fileChooser = document.getElementById('logo_image');
+      //var file = fileChooser.files[0];
       /*
       if (file) {
         var params = { Key: file.name, ContentType: file.type, Body: file };
