@@ -80,9 +80,10 @@ function getAllOrganizationData(slug_id) {
               return result
             })
               .then(function (catArray) {//need all organization data
+                var orgPromise = getOrganization(slug_id)
                 var dbPromise = prodQueries.whereInProducts(catArray[catArray.length -1])
                 var arrPromise = catArray.slice(0, catArray.length - 1)
-                return Promise.all([dbPromise, arrPromise]).then(function(values) {
+                return Promise.all([dbPromise, arrPromise, orgPromise]).then(function(values) {
                   return values
                 })
               })

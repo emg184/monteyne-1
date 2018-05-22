@@ -175,7 +175,7 @@ req.body.color, req.body.sizes, req.body.custom_fields)
         });
   })
   app.get('/api/upload', (req, res) => {
-    var tok = req.headers.authorization;
+    var tok = req.headers.authorization.split(" ")[1];
     var decoded = jwt.verify(tok, config.secret);
     const key = `${decoded.sub}/${uuid()}.jpeg`;
     s3.getSignedUrl(
