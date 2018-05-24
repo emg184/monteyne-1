@@ -59,7 +59,7 @@ module.exports = app => {
   app.post("/api/organizations/:slug_id/:category_id", function (req, res, next) {
 //add product
     queries.addProduct(req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
-req.body.color, req.body.sizes, req.body.custom_fields)
+req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
       .then(function () {
               res.status(200).json({message: "product added"})
       })
@@ -80,7 +80,7 @@ req.body.color, req.body.sizes, req.body.custom_fields)
   app.put("/api/organizations/:slug_id/:category_id/:product_id", function (req, res, next) {
 //update product
     queries.updateProduct(req.params.product_id, req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
-req.body.color, req.body.sizes, req.body.custom_fields)
+req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
       .then(function () {
               res.status(200).json({message: "product updated"})
       })
