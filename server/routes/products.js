@@ -69,7 +69,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
   });
   app.post("/api/organizations/:slug_id/:category_id/:product_id", function (req, res, next) {
 //add image
-    queries.addImage(req.body.name, req.params.product_id, req.body.status=true, req.body.url)
+    queries.addImage(req.body.name, req.params.product_id, req.body.status=true, req.body.url, req.body.associations)
       .then(function () {
               res.status(200).json({message: "image added"})
       })
@@ -90,7 +90,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
   })
   app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id", function (req, res, next) {
 //update image
-    queries.updateImage(req.params.image_id, req.body.name, req.params.product_id, req.body.status=true, req.body.url)
+    queries.updateImage(req.params.image_id, req.body.name, req.params.product_id, req.body.status=true, req.body.url, req.body.associations)
       .then(function () {
               res.status(200).json({message: "image updated"})
       })

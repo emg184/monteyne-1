@@ -60,7 +60,7 @@ function deleteImage(image_id) {
               .del()
 }
 
-function updateProduct(prod_id, name, category, status=true, desc, price, color='', size='', customs='') {
+function updateProduct(prod_id, name, category, status=true, desc, price, color='', size='', customs='', sku='') {
   return Products()
           .where({
             'product_id': prod_id
@@ -73,7 +73,8 @@ function updateProduct(prod_id, name, category, status=true, desc, price, color=
               'price': price,
               'colors': color,
               'sizes': size,
-              'custom_fields': customs
+              'custom_fields': customs,
+              'sku': sku
             })
 }
 
@@ -131,7 +132,7 @@ function deactivateImage(id) {
             })
 }
 
-function addProduct(name, category, status=true, desc, price, color='', size='', customs='') {
+function addProduct(name, category, status=true, desc, price, color='', size='', customs='', sku='') {
   return Products()
           .insert({
             'product_name': name,
@@ -141,17 +142,19 @@ function addProduct(name, category, status=true, desc, price, color='', size='',
             'price': price,
             'colors': color,
             'sizes': size,
-            'custom_fields': customs
+            'custom_fields': customs,
+            'sku': sku
           })
 }
 
-function addImage(name, prod_id, status=true, url) {
+function addImage(name, prod_id, status=true, url, associations) {
   return Images()
           .insert({
             'image_name': name,
             'product_id': prod_id,
             'active': status,
             'image_url': url,
+            'associations': associations
           })
 }
 
@@ -159,8 +162,18 @@ function addImage(name, prod_id, status=true, url) {
 function whereInProducts(catArray) {
   //return Products()
           //.whereIn('category_id', catArray)
-  return knex.select().from('products')
-          .whereIn('category_id', catArray)
+   return knex.select().from('products')
+            .whereIn('category_id', catArray)
+              .then((res) => {
+                return Promise.all(res.map( product => {
+                  return getProductImages(product.product_id)
+                          .then( image => {
+                            product['images'] = image
+                            return product
+                          })
+                })
+              )
+            })
   /*
   return Promise.all(catArray.map(
     function(obj) {

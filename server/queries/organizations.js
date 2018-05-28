@@ -79,7 +79,7 @@ function getAllOrganizationData(slug_id) {
               result.push(catCollection)
               return result
             })
-              .then(function (catArray) {//need all organization data
+              .then(function (catArray) {
                 var orgPromise = getOrganization(slug_id)
                 var dbPromise = prodQueries.whereInProducts(catArray[catArray.length -1])
                 var arrPromise = catArray.slice(0, catArray.length - 1)
