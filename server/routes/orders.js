@@ -26,17 +26,18 @@ const makeStripeOrder = function(options, cb) {
         sendErr(options.res, 500, err.Error);
     });
 }
+module.exports = app => {
+  app.post("/api/charge", (req, res) => {
+      let options = {};
+      //options.type = req.body.cart.type;
+      //options.qty = req.body.form.amount;
+      options.email = req.body.stripe.email;
+      options.card = req.body.stripe.id;
+      options.totalPrice = req.body.cart.totalPrice * 100;
+      options.res = res;
 
-app.post("/api/charge", (req, res) => {
-    let options = {};
-    //options.type = req.body.cart.type;
-    //options.qty = req.body.form.amount;
-    options.email = req.body.stripe.email;
-    options.card = req.body.stripe.id;
-    options.totalPrice = req.body.cart.totalPrice * 100;
-    options.res = res;
-
-    makeStripeOrder(options, function() {
-        //callback if you need
-    });
-});
+      makeStripeOrder(options, function() {
+          //callback if you need
+      });
+  });
+}

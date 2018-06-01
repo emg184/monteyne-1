@@ -60,14 +60,12 @@ module.exports = app => {
 //add product
     queries.addProduct(req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
 req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
-<<<<<<< HEAD
       .then(function (product) {
               res.status(200).json(product)
-=======
+            })
       .then(function (res) {
               res.status(200).json(res)
->>>>>>> eab7c1eeb1dc41984aa5c79ae553a187b6be083a
-      })
+            })
       .catch(function (error) {
           next(error);
       });
