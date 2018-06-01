@@ -161,8 +161,6 @@ function addImage(name, prod_id, status=true, url, associations) {
 
 
 function whereInProducts(catArray) {
-  //return Products()
-          //.whereIn('category_id', catArray)
    return knex.select().from('products')
             .whereIn('category_id', catArray)
               .then((res) => {
@@ -175,16 +173,6 @@ function whereInProducts(catArray) {
                 })
               )
             })
-  /*
-  return Promise.all(catArray.map(
-    function(obj) {
-      return getProduct(obj.category_id)
-    })
-      .then(function(prods) {
-        prods[cats]
-      })
-  );
-  */
 }
 
 
