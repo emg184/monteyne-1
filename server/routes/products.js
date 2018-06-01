@@ -60,8 +60,8 @@ module.exports = app => {
 //add product
     queries.addProduct(req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
 req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
-      .then(function () {
-              res.status(200).json({message: "product added"})
+      .then(function (res) {
+              res.status(200).json(res)
       })
       .catch(function (error) {
           next(error);
@@ -183,6 +183,21 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
       {
         Bucket: 'my-advanced-node-blog',
         ContentType: 'image/jpeg',
+        Key: key
+      },
+      (err, url) => {
+        res.send({ key, url })
+      });
+  });
+  app.get('/api/upload/png', (req, res) => {
+    var tok = req.headers.authorization.split(" ")[1];
+    var decoded = jwt.verify(tok, config.secret);
+    const key = `${decoded.sub}/${uuid()}.png`;
+    s3.getSignedUrl(
+      'putObject',
+      {
+        Bucket: 'my-advanced-node-blog',
+        ContentType: 'image/png',
         Key: key
       },
       (err, url) => {

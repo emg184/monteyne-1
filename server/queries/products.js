@@ -79,7 +79,7 @@ function updateProduct(prod_id, name, category, status=true, desc, price, color=
 }
 
 
-function updateImage(id, name, prod_id, status=true, url) {
+function updateImage(id, name, prod_id, status=true, url, associations) {
   return Images()
           .where({
             'image_id': id
@@ -88,7 +88,8 @@ function updateImage(id, name, prod_id, status=true, url) {
               'image_name': name,
               'product_id': prod_id,
               'active': status,
-              'image_url': url
+              'image_url': url,
+              'associations': associations
             })
 }
 
@@ -160,8 +161,6 @@ function addImage(name, prod_id, status=true, url, associations) {
 
 
 function whereInProducts(catArray) {
-  //return Products()
-          //.whereIn('category_id', catArray)
    return knex.select().from('products')
             .whereIn('category_id', catArray)
               .then((res) => {
@@ -174,16 +173,6 @@ function whereInProducts(catArray) {
                 })
               )
             })
-  /*
-  return Promise.all(catArray.map(
-    function(obj) {
-      return getProduct(obj.category_id)
-    })
-      .then(function(prods) {
-        prods[cats]
-      })
-  );
-  */
 }
 
 
