@@ -5,7 +5,6 @@ function Orders() {
 }
 
 function cartDestructure(cart) {
-
   return cart.map( (obj) => {
           let keys = Object.keys(obj.details)
           let noActive = keys.filter((objKey) => objKey !== 'active')
@@ -24,6 +23,7 @@ function cartDestructure(cart) {
 
 function newOrder(products, shipping_info, email, name, total) {
   return Orders()
+          .returning(['order_number','products','shipping_info','email', 'name', 'total'])
           .insert({
             "products": products,
             "shipping_info": shipping_info,
