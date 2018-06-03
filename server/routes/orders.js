@@ -35,13 +35,11 @@ module.exports = app => {
     options.totalPrice = req.body.cart.totalPrice * 100;
     options.res = res;
     makeStripeOrder(options, function() {
-        //callback if you need
+      queries.cartDestructure(req.body.cart)
+        .then(result => {
+          queries.newOrder(JSON.stringify(result), JSON.stringify(req.body.shipping_info), req.body.stripe.email, req.body.name, req.body.totalPrice)
+        })
     });
-    queries.cartDestructure(req.body.cart)
-      .then(result => {
-        queries.newOrder(JSON.stringify(result), JSON.stringify(req.body.shipping_info), req.body.stripe.email, req.body.name, req.body.totalPrice)
-      })
-    res.status(200).json({message:"Order Created"});
   })
   app.get("/api/order", (req,res) => {
     queries.getOrders()
