@@ -5,6 +5,7 @@ function Orders() {
 }
 
 function cartDestructure(cart) {
+
   return cart.map( (obj) => {
           let keys = Object.keys(obj.details)
           let noActive = keys.filter((objKey) => objKey !== 'active')
