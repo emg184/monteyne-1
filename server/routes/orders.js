@@ -57,7 +57,7 @@ module.exports = app => {
                  else
                    console.log(info);
           })
-          res.status(200).json({ "charge": charge, "result": result })
+          res.status(200).json({ "charge": charge, "orderId": result })
         })
     });
   })

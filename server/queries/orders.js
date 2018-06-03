@@ -23,7 +23,6 @@ function cartDestructure(cart) {
 
 function newOrder(products, shipping_info, email, name, total) {
   return Orders()
-          .returning(['order_number','products','shipping_info','email', 'name', 'total'])
           .insert({
             "products": products,
             "shipping_info": shipping_info,
