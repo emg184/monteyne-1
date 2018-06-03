@@ -14,12 +14,6 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-
-
-const sendErr = function(res, msg, code) {
-    res.send(code).json({ error: msg });
-}
-
 const makeStripeOrder = function(options, cb) {
     stripe.customers.create({
         email: options.email,
@@ -35,8 +29,7 @@ const makeStripeOrder = function(options, cb) {
     }).then(function(charge) {
         cb(charge);
     }).catch(err => {
-        console.log("Stripe Error:", err);
-        sendErr(options.res, 500, err.Error);
+         return options.res.status(500).json(err.Error)
     });
 }
 module.exports = app => {
