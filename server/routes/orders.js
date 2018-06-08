@@ -68,7 +68,7 @@ module.exports = app => {
         let saveData = queries.cartDestructure(req.body.cart.products)
         queries.newOrder(JSON.stringify(saveData), JSON.stringify(req.body.shipping_info), req.body.stripe.email, req.body.name, req.body.totalPrice)
         .then( result => {
-          var mailBody = funcs.createEmailBody(saveData, req.body.stripe.email, result[0].toString())
+          var mailBody = funcs.createEmailBody(saveData, req.body.stripe.email, result[0].toString(), req.body.shipping_info)
           var mailOps = funcs.createMail(mailBody)
           transporter.sendMail(mailOps, function (err, info) {
                  if(err) {

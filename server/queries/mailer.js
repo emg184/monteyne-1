@@ -1,9 +1,17 @@
 const creds = require('../config');
 
-function createEmailBody(products, email, ordernumber) {
+function createEmailBody(products, email, ordernumber, shipping_info) {
   var acc = "<h1>Order #: " + ordernumber.toString() + "</h1>\
-<h1>" + email + "</h1>\
-<table align='left' style='width: 100%; border-collapse: collapse;' cellspacing='0' cellpadding='10' border='1'>\
+<h1>" + email + "</h1>" + "<h2> Shipping Info </h2>" +
+"<h2> First Name: " + shipping_info.first.toString() + "</h2>\
+<h2> Last Name: " + shipping_info.last.toString() + "</h2> <h1> Address: </h1>\
+<h2> Line 1: " + shipping_info.address.line1.toString() + "</h2>\
+<h2> Apartment: " + shipping_info.address.apartment.toString() + "</h2>\
+<h2> City: " + shipping_info.address.city.toString() + "</h2>\
+<h2> State: " + shipping_info.address.state.toString() + "</h2>\
+<h2> Postal: " + shipping_info.address.postal_code.toString() + "</h2>\
+<h2>"
++ "<table align='left' style='width: 100%; border-collapse: collapse;' cellspacing='0' cellpadding='10' border='1'>\
 <tr>\
 <th style='color: white;' bgcolor='#000000'>Product Name</th>\
 <th style='color: white;' bgcolor='#000000'>Product ID</th>\
