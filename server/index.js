@@ -27,7 +27,6 @@ require('./routes/organizations')(app);
 require('./routes/categories')(app);
 require('./routes/products')(app);
 require('./routes/users')(app);
-require('./routes/mailer')(app);
 require('./routes/orders')(app);
 
 app.get('/*', function(req, res) {
