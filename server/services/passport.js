@@ -3,7 +3,7 @@ const queries = require("../queries/users.js");
 const passport = require('passport');
 const config = require('../config');
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt.fromAuthHeaderWithScheme('Bearer');
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy =  require('passport-local');
 
 const localOptions = { usernameField: 'email' };
@@ -40,7 +40,7 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
 });
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
   secretOrKey: config.secret
 };
 
