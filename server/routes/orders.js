@@ -32,28 +32,27 @@ const makeStripeOrder = function(options, cb) {
         switch (err.type) {
           case 'StripeCardError':
             // A declined card error
-            err.message; // => e.g. "Your card's expiration year is invalid."
-            res.status(400).json(message: JSON.stringify(err.message));
+            res.status(400).json({message: JSON.stringify(err.message)});
             break;
           case 'StripeInvalidRequestError':
             // Invalid parameters were supplied to Stripe's API
-            res.status(400).json(message: "Invalid parameters were supplied to Stripe's API");
+            res.status(400).json({message: "Invalid parameters were supplied to Stripe's API"});
             break;
           case 'StripeAPIError':
             // An error occurred internally with Stripe's API
-            res.status(400).json(message: "An error occurred internally with Stripe's API");
+            res.status(400).json({message: "An error occurred internally with Stripe's API"});
             break;
           case 'StripeConnectionError':
             // Some kind of error occurred during the HTTPS communication
-            res.status(400).json(message: "An error occurred involving secure communication");
+            res.status(400).json({message: "An error occurred involving secure communication"});
             break;
           case 'StripeAuthenticationError':
             // You probably used an incorrect API key
-            res.status(400).json(message: "The site is currently incapable of servicing requests");
+            res.status(400).json({message: "The site is currently incapable of servicing requests"});
             break;
           case 'StripeRateLimitError':
             // Too many requests hit the API too quickly
-            res.status(400).json(message: "The site is currently under high load please try again soon");
+            res.status(400).json({message: "The site is currently under high load please try again soon"});
             break;
         }
          //return options.res.status(500).json(err.Error)
