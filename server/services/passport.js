@@ -8,25 +8,29 @@ const LocalStrategy =  require('passport-local');
 
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
-  console.log("I'm in here")
   queries.findUserByEmail(email)
     .then(function(result) {
-      Promise.resolve(result).then(function(res) {
-        if (typeof res === 'object' && res.length == 1 ) {
-          comparePassword(res[0].password, password,  function(err, isMatch) {
-            console.log(err, isMatch)
-            if (err) {
-              return done(err);
-            }
+      return Promise.resolve(result).then(function(res) {
+        console.log(res[0].active)
+        if (res[0].active === 1) {
+          if (typeof res === 'object' && res.length == 1 ) {
+            comparePassword(res[0].password, password,  function(err, isMatch) {
+              if (err) {
+                return done(err);
+              }
 
-            if (!isMatch) {
-             return done(null, false);
-            }
+              if (!isMatch) {
+               return done(null, false);
+              }
 
-            return done(null, res);
-          });
-        } else {
-          return done("That user doesn't exist", false)
+              return done(null, res);
+            });
+          } else {
+            return done("That user doesn't exist", false)
+          }
+        }
+        else {
+          return done("That user isnt active", false)
         }
       })
     })

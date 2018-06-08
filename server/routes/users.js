@@ -40,4 +40,18 @@ module.exports = app => {
             next(error);
         });
   });
+  app.post('/api/user/activate', requireAuth,
+  function(req, res, next) {
+    queries.activateUser(req.body.email)
+      .then( result => {
+        res.send({ "message": "activated " + result[0].email });
+      })
+  });
+  app.post('/api/user/deactivate', requireAuth,
+  function(req, res, next) {
+    queries.deactivateUser(req.body.email)
+      .then( result => {
+        res.send({ "message": "deactivated " + result[0].email });
+      })
+  });
 }

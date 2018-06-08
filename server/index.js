@@ -2,10 +2,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var path = require('path');
+var compression = require('compression');
+var helmet = require('helmet');
 var port = process.env.PORT || 5000;
 
 var app = express();
-
+app.use(compression());
+app.use(helmet());
 app.use(cors());
 app.use(bodyParser.urlencoded({
   extended: true

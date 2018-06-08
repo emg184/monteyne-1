@@ -29,7 +29,34 @@ const makeStripeOrder = function(options, cb) {
     }).then(function(charge) {
         cb(charge);
     }).catch(err => {
-         return options.res.status(500).json(err.Error)
+        switch (err.type) {
+          case 'StripeCardError':
+            // A declined card error
+            err.message; // => e.g. "Your card's expiration year is invalid."
+            res.status(400).json("message": JSON.stringify(err.message));
+            break;
+          case 'StripeInvalidRequestError':
+            // Invalid parameters were supplied to Stripe's API
+            res.status(400).json("message": "Invalid parameters were supplied to Stripe's API");
+            break;
+          case 'StripeAPIError':
+            // An error occurred internally with Stripe's API
+            res.status(400).json("message": "An error occurred internally with Stripe's API");
+            break;
+          case 'StripeConnectionError':
+            // Some kind of error occurred during the HTTPS communication
+            res.status(400).json("message": "An error occurred involving secure communication");
+            break;
+          case 'StripeAuthenticationError':
+            // You probably used an incorrect API key
+            res.status(400).json("message": "The site is currently incapable of servicing requests");
+            break;
+          case 'StripeRateLimitError':
+            // Too many requests hit the API too quickly
+            res.status(400).json("message": "The site is currently under high load please try again soon");
+            break;
+        }
+         //return options.res.status(500).json(err.Error)
     });
 }
 module.exports = app => {
@@ -43,12 +70,15 @@ module.exports = app => {
         let saveData = queries.cartDestructure(req.body.cart.products)
         queries.newOrder(JSON.stringify(saveData), JSON.stringify(req.body.shipping_info), req.body.stripe.email, req.body.name, req.body.totalPrice)
         .then( result => {
-          var mailOps = funcs.createMail()
+          var mailBody = funcs.createEmailBody(newData, req.body.stripe.email, result[0].toString())
+          var mailOps = funcs.createMail(mailBody)
           transporter.sendMail(mailOps, function (err, info) {
-                 if(err)
-                   console.log(err)
-                 else
-                   console.log(info);
+                 if(err) {
+
+                 }
+                 else {
+
+                 }
           })
           res.status(200).json({ "charge": charge, "orderId": result })
         })
@@ -57,7 +87,6 @@ module.exports = app => {
   app.get("/api/order", (req,res) => {
     queries.getOrders()
       .then(result => {
-        console.log(result);
         res.status(200).json(result);
       })
   })

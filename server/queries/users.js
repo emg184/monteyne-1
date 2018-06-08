@@ -33,6 +33,7 @@ function saveUser( email, password, next) {
                               .insert({
                                 'email': email.toLowerCase(),
                                 'password': x,
+                                'active': false
                               })
                     })
                   })
@@ -43,9 +44,23 @@ function saveUser( email, password, next) {
           })
 }
 
+function activateUser(email) {
+  return Users()
+          .where({ 'email': email })
+            .update({ 'active': 1 })
+}
+
+function deactivateUser(email) {
+  return Users()
+          .where({ 'email': email })
+            .update({ 'active': 0 })
+}
+
 module.exports = {
   getAllUsers: getAllUsers,
   findUserById: findUserById,
   findUserByEmail: findUserByEmail,
-  saveUser: saveUser
+  saveUser: saveUser,
+  activateUser,
+  deactivateUser
 };

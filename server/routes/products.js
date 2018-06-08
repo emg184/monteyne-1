@@ -56,7 +56,7 @@ module.exports = app => {
               next(error);
           });
   });
-  app.post("/api/organizations/:slug_id/:category_id", function (req, res, next) {
+  app.post("/api/organizations/:slug_id/:category_id", requireAuth, function (req, res, next) {
 //add product
     queries.addProduct(req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
 req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
@@ -70,7 +70,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
           next(error);
       });
   });
-  app.post("/api/organizations/:slug_id/:category_id/:product_id", function (req, res, next) {
+  app.post("/api/organizations/:slug_id/:category_id/:product_id", requireAuth, function (req, res, next) {
 //add image
     queries.addImage(req.body.name, req.params.product_id, req.body.status=true, req.body.url, req.body.associations)
       .then(function () {
@@ -80,7 +80,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
           next(error);
       });
   });
-  app.put("/api/organizations/:slug_id/:category_id/:product_id", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id", requireAuth, function (req, res, next) {
 //update product
     queries.updateProduct(req.params.product_id, req.body.name, req.params.category_id, req.body.status=true, req.body.desc, req.body.price,
 req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
@@ -91,7 +91,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
           next(error);
       });
   })
-  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id", requireAuth, function (req, res, next) {
 //update image
     queries.updateImage(req.params.image_id, req.body.name, req.params.product_id, req.body.status=true, req.body.url, req.body.associations)
       .then(function () {
@@ -101,7 +101,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
           next(error);
       });
   })
-  app.put("/api/organizations/:slug_id/:category_id/:product_id/activate", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id/activate", requireAuth, function (req, res, next) {
 //activate product
     queries.activateProduct(req.params.product_id)
         .then(function () {
@@ -111,7 +111,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
             next(error);
         });
   })
-  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id/activate", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id/activate", requireAuth, function (req, res, next) {
 //activate image
     queries.activateImage(req.params.image_id)
         .then(function () {
@@ -121,7 +121,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
             next(error);
         });
   })
-  app.put("/api/organizations/:slug_id/:category_id/:product_id/deactivate", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id/deactivate", requireAuth, function (req, res, next) {
 //deactivate product
     queries.deactivateProduct(req.params.product_id)
         .then(function () {
@@ -131,7 +131,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
             next(error);
         });
   })
-  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id/deactivate", function (req, res, next) {
+  app.put("/api/organizations/:slug_id/:category_id/:product_id/:image_id/deactivate", requireAuth, function (req, res, next) {
 //deactivate image
     queries.deactivateImage(req.params.image_id)
         .then(function () {
@@ -141,7 +141,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
             next(error);
         });
   })
-  app.delete("/api/organizations/:slug_id/:category_id/:product_id/:image_id", function (req, res, next) {
+  app.delete("/api/organizations/:slug_id/:category_id/:product_id/:image_id", requireAuth, function (req, res, next) {
 //delete image
     queries.deleteImage(req.params.image_id)
         .then(function () {
@@ -151,7 +151,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
             next(error);
         });
   })
-  app.delete("/api/organizations/:slug_id/:category_id/:product_id", function (req, res, next) {
+  app.delete("/api/organizations/:slug_id/:category_id/:product_id", requireAuth, function (req, res, next) {
 //delete product
     queries.deleteProduct(req.params.product_id)
         .then(function () {
