@@ -5,14 +5,14 @@ function createEmailBody(products, email, ordernumber) {
 <h1>" + email + "</h1>\
 <table align='left' style='width: 100%; border-collapse: collapse;' cellspacing='0' cellpadding='10' border='1'>\
 <tr>\
-<th style="color: white;" bgcolor="#000000">Product Name</th>\
-<th style="color: white;" bgcolor="#000000">Product ID</th>\
-<th style="color: white;" bgcolor="#000000">Price</th>\
-<th style="color: white;" bgcolor="#000000">SKU</th>\
-<th style="color: white;" bgcolor="#000000">Quanity</th>\
-<th style="color: white;" bgcolor="#000000">Size</th>\
-<th style="color: white;" bgcolor="#000000">Variant</th>\
-<th style="color: white;" bgcolor="#000000">Personalization</th>\
+<th style='color: white;' bgcolor='#000000'>Product Name</th>\
+<th style='color: white;' bgcolor='#000000'>Product ID</th>\
+<th style='color: white;' bgcolor='#000000'>Price</th>\
+<th style='color: white;' bgcolor='#000000'>SKU</th>\
+<th style='color: white;' bgcolor='#000000'>Quanity</th>\
+<th style='color: white;' bgcolor='#000000'>Size</th>\
+<th style='color: white;' bgcolor='#000000'>Variant</th>\
+<th style='color: white;' bgcolor='#000000'>Personalization</th>\
 </tr>"
   for (let i=0; i<products.length; i++) {
     acc += "<tr><td>" + products[i].details.product_name + `</td>
