@@ -2,18 +2,18 @@ const creds = require('../config');
 
 function createEmailBody(products, email, ordernumber) {
   var acc = "<h1>Order #: " + ordernumber.toString() + "</h1>\
- <h1>" + email + "</h1>\
- <table align='left' style='width:100%' cellspacing='0' cellpadding='10' border='1'>\
- <tr>\
- <th>Product Name</th>\
- <th>Product ID</th>\
- <th>Price</th>\
- <th>SKU</th>\
- <th>Quanity</th>\
- <th>Size</th>\
- <th>Variant</th>\
- <th>Custom Things</th>\
- </tr>"
+<h1>" + email + "</h1>\
+<table align='left' style='width: 100%; border-collapse: collapse;' cellspacing='0' cellpadding='10' border='1'>\
+<tr>\
+<th style="color: white;" bgcolor="#000000">Product Name</th>\
+<th style="color: white;" bgcolor="#000000">Product ID</th>\
+<th style="color: white;" bgcolor="#000000">Price</th>\
+<th style="color: white;" bgcolor="#000000">SKU</th>\
+<th style="color: white;" bgcolor="#000000">Quanity</th>\
+<th style="color: white;" bgcolor="#000000">Size</th>\
+<th style="color: white;" bgcolor="#000000">Variant</th>\
+<th style="color: white;" bgcolor="#000000">Personalization</th>\
+</tr>"
   for (let i=0; i<products.length; i++) {
     acc += "<tr><td>" + products[i].details.product_name + `</td>
     <td>` + products[i].details.product_id.toString() + `</td>

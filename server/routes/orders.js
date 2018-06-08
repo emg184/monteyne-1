@@ -55,7 +55,6 @@ const makeStripeOrder = function(options, cb) {
             res.status(400).json({message: "The site is currently under high load please try again soon"});
             break;
         }
-         //return options.res.status(500).json(err.Error)
     });
 }
 module.exports = app => {
