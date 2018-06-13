@@ -98,7 +98,7 @@
 
         $http({
           method: 'DELETE',
-          url: 'http://dashboard.foresightiot.com/api/organizations/' + $scope.slug_id + '/categories',
+          url: 'http://dashboard.allcountyapparel.com/api/organizations/' + $scope.slug_id + '/categories',
           data: deleteConfig,
           headers: {'Content-Type': 'application/json'}
         }).then(function() {
