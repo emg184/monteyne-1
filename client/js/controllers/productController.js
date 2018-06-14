@@ -192,7 +192,7 @@
             product: $scope.product_id
           }, {
             name: data.key,
-            url: 'https://customapparelapi.s3.amazonaws.com/' + data.key,
+            url: 'https://allcountyapparelphotobucket.s3.amazonaws.com/' + data.key,
             associations: JSON.stringify(image.associations)
           }, function(imgRes) {});
         });

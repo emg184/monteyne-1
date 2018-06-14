@@ -184,11 +184,12 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
     s3.getSignedUrl(
       'putObject',
       {
-        Bucket: 'allcountyapparelapi',
+        Bucket: 'allcountyapparelphotobucket',
         ContentType: 'image/jpeg',
         Key: key
       },
       (err, url) => {
+console.log(url)
         res.send({ key, url })
       });
   });
@@ -199,7 +200,7 @@ req.body.color, req.body.sizes, req.body.custom_fields, req.body.sku)
     s3.getSignedUrl(
       'putObject',
       {
-        Bucket: 'allcountyapparelapi',
+        Bucket: 'allcountyapparelphotobucket',
         ContentType: 'image/png',
         Key: key
       },

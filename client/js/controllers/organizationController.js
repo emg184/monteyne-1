@@ -88,7 +88,7 @@
               'Content-Type': file.type
             }
           }).then(function(response) {
-            orgConfig.image = 'https://customapparelapi.s3.amazonaws.com/' + data.key;
+            orgConfig.image = 'https://allcountyapparelphotobucket.s3.amazonaws.com/' + data.key;
 
             Organization.save(orgConfig, function(res) {
               $location.url('/organizations');
@@ -117,7 +117,7 @@
       if (file) {
         $('.overlay').fadeIn(800);
         Organization.upload(function(data) {
-          orgConfig.image = 'https://customapparelapi.s3.amazonaws.com/' + data.key;
+          orgConfig.image = 'https://allcountyapparelphotobucket.s3.amazonaws.com/' + data.key;
 
           fetch(data.url, {
             method: 'PUT',
